@@ -1,18 +1,18 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import LoginMUI from './features/auth/LoginMUI';
-import Dashboard from './pages/Dashboard';
-import ProjectDetail from './pages/ProjectDetail';
-import ProtectedRoute from './components/ProtectedRoute';
+import LoginRedux from './features/auth/LoginRedux';
+import DashboardRedux from './pages/DashboardRedux';
+import ProjectDetailRedux from './pages/ProjectDetailRedux';
+import ProtectedRouteRedux from './components/ProtectedRouteRedux';
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/login" element={<LoginMUI />} />
+      <Route path="/login" element={<LoginRedux />} />
       <Route path="/dashboard" element={
-        <ProtectedRoute><Dashboard /></ProtectedRoute>
+        <ProtectedRouteRedux><DashboardRedux /></ProtectedRouteRedux>
       } />
       <Route path="/projects/:id" element={
-        <ProtectedRoute><ProjectDetail /></ProtectedRoute>
+        <ProtectedRouteRedux><ProjectDetailRedux /></ProtectedRouteRedux>
       } />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
