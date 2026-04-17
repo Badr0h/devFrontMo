@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "name": "Site E-commerce",
+      "color": "#FF6B6B",
+      "description": "Développement de la plateforme de vente en ligne"
+    },
+    {
+      "id": "2", 
+      "name": "Application Mobile",
+      "color": "#4ECDC4",
+      "description": "Création de l'application iOS et Android"
+    },
+    {
+      "id": "3",
+      "name": "Refactorisation Backend",
+      "color": "#45B7D1", 
+      "description": "Modernisation de l'architecture serveur"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@taskflow.com",
+      "password": "admin123",
+      "name": "Administrateur"
+    },
+    {
+      "id": "2", 
+      "email": "user@taskflow.com",
+      "password": "user123",
+      "name": "Utilisateur Test"
+    }
+  ]
+}
