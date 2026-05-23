@@ -7,7 +7,7 @@
       "description": "Développement de la plateforme de vente en ligne"
     },
     {
-      "id": "2", 
+      "id": "2",
       "name": "Application Mobile",
       "color": "#4ECDC4",
       "description": "Création de l'application iOS et Android"
@@ -15,8 +15,18 @@
     {
       "id": "3",
       "name": "Refactorisation Backend",
-      "color": "#45B7D1", 
+      "color": "#45B7D1",
       "description": "Modernisation de l'architecture serveur"
+    },
+    {
+      "id": "1779569121058",
+      "name": "pksi",
+      "color": "#3498db"
+    },
+    {
+      "id": "1779569127059",
+      "name": "didn",
+      "color": "#db6e33"
     }
   ],
   "users": [
@@ -27,7 +37,7 @@
       "name": "Administrateur"
     },
     {
-      "id": "2", 
+      "id": "2",
       "email": "user@taskflow.com",
       "password": "user123",
       "name": "Utilisateur Test"
