@@ -1,47 +1,43 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-
-const DB_PATH = path.join(process.cwd(), 'db.json');
-
-function readDB() {
-  const data = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
-  return data;
-}
-
-function writeDB(data: any) {
-  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-}
+import { prisma } from '@/lib/prisma';
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   const { id } = await params;
-  const db = readDB();
-  const project = db.projects.find((p: any) => p.id === id);
+  const project = await prisma.project.findUnique({
+    where: { id: Number(id) }
+  });
+  
   if (!project) {
     return NextResponse.json({ error: 'Projet non trouvé' }, { status: 404 });
   }
+  
   return NextResponse.json(project);
 }
 
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
   const { id } = await params;
-  const body = await request.json();
-  const db = readDB();
-  const index = db.projects.findIndex((p: any) => p.id === id);
+  const { name, color } = await request.json();
   
-  if (index === -1) {
+  try {
+    const project = await prisma.project.update({
+      where: { id: Number(id) },
+      data: { name, color }
+    });
+    return NextResponse.json(project);
+  } catch (error) {
     return NextResponse.json({ error: 'Projet non trouvé' }, { status: 404 });
   }
-
-  db.projects[index] = { ...db.projects[index], ...body };
-  writeDB(db);
-  return NextResponse.json(db.projects[index]);
 }
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   const { id } = await params;
-  const db = readDB();
-  db.projects = db.projects.filter((p: any) => p.id !== id);
-  writeDB(db);
-  return new NextResponse(null, { status: 204 });
+  
+  try {
+    await prisma.project.delete({
+      where: { id: Number(id) }
+    });
+    return new NextResponse(null, { status: 204 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Projet non trouvé' }, { status: 404 });
+  }
 }

@@ -1,24 +1,17 @@
 'use server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import fs from 'fs';
-import path from 'path';
-
-const DB_PATH = path.join(process.cwd(), 'db.json');
-
-function readUsers() {
-  const db = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
-  return db.users;
-}
+import { prisma } from '@/lib/prisma';
 
 export async function login(prevState: any, formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
-  const users = readUsers();
-  const user = users.find((u: any) => u.email === email && u.password === password);
+  const user = await prisma.user.findUnique({
+    where: { email }
+  });
 
-  if (!user) {
+  if (!user || user.password !== password) {
     return { error: 'Email ou mot de passe incorrect' };
   }
 
