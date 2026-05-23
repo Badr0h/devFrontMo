@@ -20,7 +20,8 @@ export async function login(prevState: any, formData: FormData) {
     email: user.email, name: user.name, role: 'admin'
   }), {
     httpOnly: true,
-    secure: false, // Set to true in production
+    secure: process.env.NODE_ENV === 'production' && process.env.VERCEL !== 'true',
+    sameSite: 'lax',
     maxAge: 3600,
     path: '/',
   });
